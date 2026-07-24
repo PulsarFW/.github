@@ -1,0 +1,23 @@
+name: Discord Commit
+
+on:
+  workflow_call:
+    secrets:
+      DISCORD_COMMIT_WEBHOOK:
+        required: true
+
+jobs:
+  notify:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      # plain webhook POST rather than a custom action - qbx uses their own
+      # unpublished Qbox-project/pipeline-pling action here, we don't have
+      # an equivalent so this just does the same thing directly
+      - name: Notify Discord
+        run: |
+          COMMIT_MSG=$(echo '${{ github.event.head_commit.message }}' | head -n 1)
+          curl -sf -H "Content-Type: application/json" -d "$(jq -n \
+            --arg content "**${{ github.event.repository.name }}**: [$COMMIT_MSG](${{ github.event.head_commit.url }}) by ${{ github.event.head_commit.author.username }}" \
+            '{content: $content}')" \
+            "${{ secrets.DISCORD_COMMIT_WEBHOOK }}"

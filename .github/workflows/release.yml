@@ -1,0 +1,42 @@
+name: Create New Release
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
+    secrets:
+      RELEASE_TOKEN:
+        required: true
+
+jobs:
+  bump-version:
+    name: Bump Manifest Version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          # a PAT is required here, not the default GITHUB_TOKEN - pushes
+          # made with the default token don't trigger other workflows, so
+          # the tag push below would never fire release-action.yml
+          token: ${{ secrets.RELEASE_TOKEN }}
+
+      - name: Bump manifest version
+        run: |
+          VERSION="${{ inputs.version }}"
+          if ! grep -qE "^version\s+'.*'" fxmanifest.lua; then
+            echo "::error::No 'version' line found in fxmanifest.lua"
+            exit 1
+          fi
+          sed -i "s/^version\s*'.*'/version '${VERSION}'/" fxmanifest.lua
+
+      - name: Push manifest change
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: fxmanifest.lua
+          push: true
+          message: "chore: bump manifest version to ${{ inputs.version }}"
+          tag: ${{ inputs.version }}
+          default_author: github_actions

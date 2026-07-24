@@ -1,0 +1,34 @@
+name: Lint
+
+on:
+  workflow_call:
+    inputs:
+      extra_libs:
+        description: "+-separated list of this resource's own dependencies, so the linter doesn't flag their globals as undefined"
+        required: false
+        type: string
+        default: "pulsar_core+pulsar_pwnzor"
+
+jobs:
+  lint:
+    name: Lint Resource
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Lint
+        uses: iLLeniumStudios/fivem-lua-lint-action@v2
+        with:
+          capture: "junit.xml"
+          args: "-t --formatter JUnit"
+          extra_libs: ${{ inputs.extra_libs }}
+
+      - name: Generate Lint Report
+        if: always()
+        uses: mikepenz/action-junit-report@v4
+        with:
+          report_paths: "**/junit.xml"
+          check_name: Linting Report
+          fail_on_failure: false
