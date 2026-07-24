@@ -9,6 +9,10 @@ on:
         type: string
         default: ""
 
+permissions:
+  contents: read
+  checks: write
+
 jobs:
   lint:
     name: Lint Resource
