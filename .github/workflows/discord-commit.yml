@@ -11,13 +11,37 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      # plain webhook POST rather than a custom action - qbx uses their own
-      # unpublished Qbox-project/pipeline-pling action here, we don't have
-      # an equivalent so this just does the same thing directly
       - name: Notify Discord
+        env:
+          COMMITS_JSON: ${{ toJson(github.event.commits) }}
+          REPO_NAME: ${{ github.event.repository.name }}
+          REPO_URL: ${{ github.event.repository.html_url }}
         run: |
-          COMMIT_MSG=$(echo '${{ github.event.head_commit.message }}' | head -n 1)
+          DESCRIPTION=$(echo "$COMMITS_JSON" | jq -r '
+            def typeEmoji(t):
+              if t == "feat" then "🚀"
+              elif t == "fix" then "🐛"
+              elif t == "refactor" then "♻️"
+              elif t == "chore" then "🔧"
+              elif t == "docs" then "📝"
+              elif t == "perf" then "⚡"
+              elif t == "test" then "✅"
+              elif t == "ci" then "👷"
+              else "🔹" end;
+            [.[] | (.message | split("\n")[0]) as $subject
+              # falls back to {type: null, rest: null} when the subject
+              # doesn't match "type(scope): rest" (e.g. a merge commit) -
+              # without the // fallback, capture's error on no-match plus
+              # ? swallowing it produces zero output and silently drops
+              # the commit from the notification entirely
+              | ($subject | capture("^(?<type>[a-zA-Z]+)(\\(.*\\))?:\\s*(?<rest>.*)$")? // {type: null, rest: null}) as $c
+              | "\(typeEmoji($c.type // "")) [`\(.id[0:7])`](\(.url)) \($c.rest // $subject) — \(.author.username)"
+            ] | join("\n")
+          ')
+
           curl -sf -H "Content-Type: application/json" -d "$(jq -n \
-            --arg content "**${{ github.event.repository.name }}**: [$COMMIT_MSG](${{ github.event.head_commit.url }}) by ${{ github.event.head_commit.author.username }}" \
-            '{content: $content}')" \
+            --arg title "$REPO_NAME" \
+            --arg url "$REPO_URL" \
+            --arg desc "$DESCRIPTION" \
+            '{embeds: [{title: $title, url: $url, description: $desc, color: 8141549}]}')" \
             "${{ secrets.DISCORD_COMMIT_WEBHOOK }}"
