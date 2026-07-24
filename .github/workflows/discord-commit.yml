@@ -29,11 +29,6 @@ jobs:
               elif t == "ci" then "👷"
               else "🔹" end;
             [.[] | (.message | split("\n")[0]) as $subject
-              # falls back to {type: null, rest: null} when the subject
-              # doesn't match "type(scope): rest" (e.g. a merge commit) -
-              # without the // fallback, capture's error on no-match plus
-              # ? swallowing it produces zero output and silently drops
-              # the commit from the notification entirely
               | ($subject | capture("^(?<type>[a-zA-Z]+)(\\(.*\\))?:\\s*(?<rest>.*)$")? // {type: null, rest: null}) as $c
               | "\(typeEmoji($c.type // "")) [`\(.id[0:7])`](\(.url)) \($c.rest // $subject) — \(.author.username)"
             ] | join("\n")
