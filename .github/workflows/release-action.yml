@@ -104,12 +104,11 @@ jobs:
           RELEASE_BODY: ${{ steps.changelog.outputs.changes }}
           REPO_NAME: ${{ github.event.repository.name }}
         run: |
+          DESC=$(printf '**%s**\n\n%s' "$RELEASE_TAG" "$RELEASE_BODY")
           curl -sf -H "Content-Type: application/json" -d "$(jq -n \
             --arg title "📦 New release published for $REPO_NAME" \
             --arg url "$RELEASE_URL" \
-            --arg desc "**$RELEASE_TAG**
-
-$RELEASE_BODY" \
+            --arg desc "$DESC" \
             '{
               username: "Pulsar Releases",
               avatar_url: "https://r2.fivemanage.com/GPYOH8Hq4GPyAY7czrgLe/pulsarbanner.png",
