@@ -13,6 +13,8 @@ jobs:
   release-action:
     name: Create Release
     runs-on: ubuntu-latest
+    env:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -95,10 +97,10 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Notify Discord
-        if: ${{ secrets.DISCORD_WEBHOOK != '' }}
+        if: ${{ env.DISCORD_WEBHOOK != '' }}
         uses: SethCohen/github-releases-to-discord@v1.16.2
         with:
-          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+          webhook_url: ${{ env.DISCORD_WEBHOOK }}
           color: "8141549"
           username: "Pulsar Releases"
           avatar_url: "https://r2.fivemanage.com/GPYOH8Hq4GPyAY7czrgLe/pulsarbanner.png"
