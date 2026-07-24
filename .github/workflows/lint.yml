@@ -4,10 +4,10 @@ on:
   workflow_call:
     inputs:
       extra_libs:
-        description: "+-separated list of this resource's own dependencies, so the linter doesn't flag their globals as undefined"
+        description: "+-separated list of fivem-lua-lint-action predefined std names (e.g. 'mysql', 'ox_lib'), not literal resource names"
         required: false
         type: string
-        default: "pulsar_core+pulsar_pwnzor"
+        default: ""
 
 jobs:
   lint:
