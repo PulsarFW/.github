@@ -1,7 +1,10 @@
 name: release-action
 
 on:
-  workflow_call: {}
+  workflow_call:
+    secrets:
+      DISCORD_WEBHOOK:
+        required: false
 
 permissions:
   contents: write
@@ -79,6 +82,7 @@ jobs:
           writeToFile: false
 
       - name: Create Release
+        id: create_release
         uses: ncipollo/release-action@v1.14.0
         with:
           allowUpdates: true
@@ -89,3 +93,20 @@ jobs:
           body: ${{ steps.changelog.outputs.changes }}
           artifacts: "${{ github.event.repository.name }}.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Notify Discord
+        if: ${{ secrets.DISCORD_WEBHOOK != '' }}
+        uses: SethCohen/github-releases-to-discord@v1.16.2
+        with:
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+          color: "8141549"
+          username: "Pulsar Releases"
+          avatar_url: "https://r2.fivemanage.com/GPYOH8Hq4GPyAY7czrgLe/pulsarbanner.png"
+          content: "📦 New release published for **${{ github.event.repository.name }}**"
+          footer_title: "Pulsar Framework"
+          footer_icon_url: "https://r2.fivemanage.com/GPYOH8Hq4GPyAY7czrgLe/pulsarbanner.png"
+          footer_timestamp: true
+          reduce_headings: true
+          release_name: ${{ github.ref_name }}
+          release_body: ${{ steps.changelog.outputs.changes }}
+          release_html_url: ${{ steps.create_release.outputs.html_url }}
