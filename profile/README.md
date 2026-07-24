@@ -76,30 +76,8 @@ Pulsar is a full-stack FiveM roleplay framework. It ships with a middleware pipe
 | [`pulsar-vehicles`](https://github.com/PulsarFW/pulsar-vehicles) | Vehicle ownership, garages, keys |
 | [`pulsar-hud`](https://github.com/PulsarFW/pulsar-hud) | HUD, notifications, progress bars |
 | [`pulsar-mdt`](https://github.com/PulsarFW/pulsar-mdt) | Police MDT |
-| [`pulsar-labor`](https://github.com/PulsarFW/pulsar-labor) | Job system — fishing, mining, and more |
-
----
-
-## Key Resources
-
-<div align="center">
-
-<table>
-  <tr>
-    <td><a href="https://github.com/PulsarFW/pulsar_core"><img src="https://github-readme-stats.vercel.app/api/pin/?username=PulsarFW&repo=pulsar_core&theme=tokyonight&bg_color=0a0614&border_color=7c3aed" /></a></td>
-    <td><a href="https://github.com/PulsarFW/pulsar-hud"><img src="https://github-readme-stats.vercel.app/api/pin/?username=PulsarFW&repo=pulsar-hud&theme=tokyonight&bg_color=0a0614&border_color=7c3aed" /></a></td>
-  </tr>
-  <tr>
-    <td><a href="https://github.com/PulsarFW/pulsar-phone"><img src="https://github-readme-stats.vercel.app/api/pin/?username=PulsarFW&repo=pulsar-phone&theme=tokyonight&bg_color=0a0614&border_color=7c3aed" /></a></td>
-    <td><a href="https://github.com/PulsarFW/pulsar-admin"><img src="https://github-readme-stats.vercel.app/api/pin/?username=PulsarFW&repo=pulsar-admin&theme=tokyonight&bg_color=0a0614&border_color=7c3aed" /></a></td>
-  </tr>
-  <tr>
-    <td><a href="https://github.com/PulsarFW/pulsar-police"><img src="https://github-readme-stats.vercel.app/api/pin/?username=PulsarFW&repo=pulsar-police&theme=tokyonight&bg_color=0a0614&border_color=7c3aed" /></a></td>
-    <td><a href="https://github.com/PulsarFW/PLSR-TxRecipe"><img src="https://github-readme-stats.vercel.app/api/pin/?username=PulsarFW&repo=PLSR-TxRecipe&theme=tokyonight&bg_color=0a0614&border_color=7c3aed" /></a></td>
-  </tr>
-</table>
-
-</div>
+| [`pulsar-jobs`](https://github.com/PulsarFW/pulsar-jobs) | Employment system — job/grade assignment, duty toggling, salary payout |
+| [`pulsar-labor`](https://github.com/PulsarFW/pulsar-labor) | Side-gig gathering jobs — fishing, farming, hunting, and more, separate from `pulsar-jobs` |
 
 <sub>One-click deploy: <a href="https://github.com/PulsarFW/PLSR-TxRecipe">PLSR-TxRecipe</a> is the txAdmin recipe for standing up a server from scratch.</sub>
 
@@ -123,6 +101,12 @@ Pulsar is a full-stack FiveM roleplay framework. It ships with a middleware pipe
         <sub><b>BaskinB</b></sub>
       </a>
     </td>
+    <td align="center">
+      <a href="https://github.com/AutLaaw">
+        <img src="https://github.com/AutLaaw.png" width="80px" style="border-radius:50%" /><br/>
+        <sub><b>AutLaaw</b></sub>
+      </a>
+    </td>
   </tr>
 </table>
 
@@ -130,26 +114,39 @@ Pulsar is a full-stack FiveM roleplay framework. It ships with a middleware pipe
 
 ---
 
-## Maintainer Stats
+## Maintainer Activity
 
 <div align="center">
 
-<table>
-  <tr>
-    <td>
-      <a href="https://github.com/Artmines">
-        <img src="https://github-readme-stats.vercel.app/api?username=Artmines&show_icons=true&theme=tokyonight&bg_color=0a0614&border_color=7c3aed&icon_color=7c3aed&title_color=7c3aed&hide_border=false" />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/BaskinB">
-        <img src="https://github-readme-stats.vercel.app/api?username=BaskinB&show_icons=true&theme=tokyonight&bg_color=0a0614&border_color=7c3aed&icon_color=7c3aed&title_color=7c3aed&hide_border=false" />
-      </a>
-    </td>
-  </tr>
-</table>
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=Artmines&bg_color=0a0614&color=7c3aed&line=f75c7e&point=ffffff&hide_border=true&title=Artmines" width="32%" />
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=BaskinB&bg_color=0a0614&color=7c3aed&line=f75c7e&point=ffffff&hide_border=true&title=BaskinB" width="32%" />
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=AutLaaw&bg_color=0a0614&color=7c3aed&line=f75c7e&point=ffffff&hide_border=true&title=AutLaaw" width="32%" />
+
+<br/>
+
+<img src="https://streak-stats.demolab.com/?user=Artmines&theme=tokyonight&background=0a0614&border=7c3aed&hide_border=true" width="32%" />
+<img src="https://streak-stats.demolab.com/?user=BaskinB&theme=tokyonight&background=0a0614&border=7c3aed&hide_border=true" width="32%" />
+<img src="https://streak-stats.demolab.com/?user=AutLaaw&theme=tokyonight&background=0a0614&border=7c3aed&hide_border=true" width="32%" />
 
 </div>
+
+<sub>Live commit activity and streaks for each maintainer. GitHub's contribution graph and streak counter are both per-account features, so this tracks each of us individually rather than the org as a whole.</sub>
+
+---
+
+## Live Repo Stats
+
+<div align="center">
+
+[![Stars](https://img.shields.io/github/stars/PulsarFW/pulsar_core?style=for-the-badge&logo=github&color=7c3aed&label=STARS)](https://github.com/PulsarFW/pulsar_core/stargazers)
+[![Forks](https://img.shields.io/github/forks/PulsarFW/pulsar_core?style=for-the-badge&logo=github&color=7c3aed&label=FORKS)](https://github.com/PulsarFW/pulsar_core/network/members)
+[![Issues](https://img.shields.io/github/issues/PulsarFW/pulsar_core?style=for-the-badge&logo=github&color=7c3aed&label=ISSUES)](https://github.com/PulsarFW/pulsar_core/issues)
+[![Last Commit](https://img.shields.io/github/last-commit/PulsarFW/pulsar_core?style=for-the-badge&logo=github&color=7c3aed&label=LAST%20COMMIT)](https://github.com/PulsarFW/pulsar_core/commits)
+[![Top Language](https://img.shields.io/github/languages/top/PulsarFW/pulsar_core?style=for-the-badge&color=2C2D72&label=TOP%20LANGUAGE)](https://github.com/PulsarFW/pulsar_core)
+
+</div>
+
+<sub>Live from GitHub's API, tracking <a href="https://github.com/PulsarFW/pulsar_core">pulsar_core</a> — shields.io has no single endpoint that aggregates activity across an entire org, so this reflects the framework's root repo rather than a manually-added-up total.</sub>
 
 ---
 
