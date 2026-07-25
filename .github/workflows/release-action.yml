@@ -83,6 +83,30 @@ jobs:
           useGitmojis: false
           writeToFile: false
 
+      - name: Build release body
+        id: body
+        env:
+          REPO_NAME: ${{ github.event.repository.name }}
+          REPO_DESC: ${{ github.event.repository.description }}
+          TAG: ${{ github.ref_name }}
+          CHANGELOG: ${{ steps.changelog.outputs.changes }}
+        run: |
+          {
+            echo "text<<RELEASE_BODY_EOF_${{ github.run_id }}"
+            printf '![Pulsar Framework](https://r2.fivemanage.com/GPYOH8Hq4GPyAY7czrgLe/pulsarbanner.png)\n\n'
+            printf '## %s %s\n\n' "$REPO_NAME" "$TAG"
+            if [ -n "$REPO_DESC" ]; then
+              printf '%s\n\n' "$REPO_DESC"
+            fi
+            printf '### Installation\n'
+            printf '1. Download `%s.zip` below\n' "$REPO_NAME"
+            printf '2. Extract into the `resources` folder\n'
+            printf '3. Add `ensure %s` to your `server.cfg`\n\n' "$REPO_NAME"
+            printf -- '---\n\n## Changelog\n\n%s\n\n' "$CHANGELOG"
+            printf -- '---\n\n![Pulsar Framework](https://img.shields.io/badge/Pulsar-Framework-7c3aed?style=flat-square) ![Built for FiveM](https://img.shields.io/badge/Built_for-FiveM-F40552?style=flat-square)\n'
+            echo "RELEASE_BODY_EOF_${{ github.run_id }}"
+          } >> "$GITHUB_OUTPUT"
+
       - name: Create Release
         id: create_release
         uses: ncipollo/release-action@v1.14.0
@@ -92,7 +116,7 @@ jobs:
           makeLatest: true
           name: ${{ github.ref_name }}
           tag: ${{ github.ref_name }}
-          body: ${{ steps.changelog.outputs.changes }}
+          body: ${{ steps.body.outputs.text }}
           artifacts: "${{ github.event.repository.name }}.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
 
