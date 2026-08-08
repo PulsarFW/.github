@@ -17,3 +17,5 @@ jobs:
         with:
           webhook-url: ${{ secrets.DISCORD_COMMIT_WEBHOOK }}
           accent-color: "#7c3aed"
+          use-sender-avatar: "false"
+          use-repo-username: "false"
